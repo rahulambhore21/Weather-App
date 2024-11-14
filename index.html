@@ -13,7 +13,7 @@
         <button><img src="search.png" alt="search-icon"></button>
     </div>
     <div class="weather">
-        <img src="rain.png" >
+        <img src="rain.png" class="weather-img">
         <div class="weather-icon">
             <h1 class="city">New York</h1>
             <h2 class="temp">22°c</h2>
@@ -36,7 +36,7 @@
 </body>
 <script>
     const apiUrl = "https://api.openweathermap.org/data/2.5/weather?appid=85bce9cda0ad2d0d9efb880160c32d60&units=metric&q=";
-
+    const weatherImg = document.querySelector(".weather-img");
     async function checkWeather(city){
         const response = await fetch(apiUrl+city);
         const data = await response.json();
@@ -45,6 +45,20 @@
         document.querySelector(".temp").innerHTML = Math.round(data.main.temp)+"°";
         document.querySelector(".humv").innerHTML = data.main.humidity;
         document.querySelector(".wind-speed").innerHTML = data.wind.speed+"m/s";
+
+        if(data.weather[0].main === "Clouds"){
+            weatherImg.src = "clouds.png";
+        }
+        else if(data.weather[0].main === "Clear"){
+            weatherImg.src = "clear.png";
+        }
+        else if(data.weather[0].main === "Rain"){
+            weatherImg.src = "rain.png";
+        }else if(data.weather[0].main === "Drizzle"){
+            weatherImg.src = "drizzle.png";
+        }else if(data.weather[0].main === "Mist"){
+            weatherImg.src = "mist.png";
+        }
         
     }
 
